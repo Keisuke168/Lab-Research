@@ -1,5 +1,7 @@
 import React from "react";
 import "./Modal.css";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 import "react-widgets/dist/css/react-widgets.css";
 import DropdownList from "react-widgets/lib/DropdownList";
 
@@ -38,10 +40,10 @@ class Modal extends React.Component {
           <div>
             <div id="overlay" onClick={this.props.close}>
               <div id="content" onClick={(e) => e.stopPropagation()}>
-                <p>GPA</p>
                 <p>
-                  <textarea>as</textarea>
+                  <TextField label="GPA" onChange={this.props.changeGpa} />
                 </p>
+                <br />
                 第一志望
                 <DropdownList
                   value={this.props.lab}
@@ -49,7 +51,9 @@ class Modal extends React.Component {
                   data={this.labs}
                 />
                 <p>
-                  <button>close</button>
+                  <Button variant="contained" color="primary">
+                    決定
+                  </Button>
                 </p>
               </div>
             </div>

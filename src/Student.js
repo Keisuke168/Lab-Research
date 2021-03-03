@@ -11,12 +11,16 @@ class Student extends React.Component {
     };
     this.setFalse = this.setFalse.bind(this);
     this.setLab = this.setLab.bind(this);
+    this.changeGpa = this.changeGpa.bind(this);
   }
   setFalse() {
     this.setState({ show: false });
   }
   setLab(lab) {
     this.setState({ lab: lab });
+  }
+  changeGpa(event) {
+    this.setState({ gpa: event.target.value });
   }
 
   render() {
@@ -41,9 +45,10 @@ class Student extends React.Component {
 
           <Modal
             show={this.state.show}
+            lab={this.state.lab}
             close={this.setFalse}
             setLab={this.setLab}
-            lab={this.state.lab}
+            changeGpa={this.changeGpa}
           />
         </div>
       </>
