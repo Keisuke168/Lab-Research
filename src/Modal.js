@@ -51,7 +51,14 @@ class Modal extends React.Component {
                   data={this.labs}
                 />
                 <p>
-                  <Button variant="contained" color="primary">
+                  <Button
+                    onClick={() => {
+                      this.props.sendData();
+                      this.props.close();
+                    }}
+                    variant="contained"
+                    color="primary"
+                  >
                     決定
                   </Button>
                 </p>
