@@ -2,14 +2,25 @@ import React from "react";
 import Modal from "./Modal";
 import Button from "@material-ui/core/Button";
 import firebase from "firebase";
-
+var firebaseConfig = {
+  apiKey: "AIzaSyBMk2xvML14UZ7Zww_Fbj_pB8IwmwEzBJc",
+  authDomain: "lab-research.firebaseapp.com",
+  databaseURL: "https://lab-research-default-rtdb.firebaseio.com",
+  projectId: "lab-research",
+  storageBucket: "lab-research.appspot.com",
+  messagingSenderId: "335753465857",
+  appId: "1:335753465857:web:685dffe281d86e08c57000",
+  measurementId: "G-K7E3GKPDYD"
+};
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
 class Student extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       show: false,
-      gpa: null,
-      lab: null
+      gpa: "未設定",
+      lab: "未選択"
     };
     this.setFalse = this.setFalse.bind(this);
     this.setLab = this.setLab.bind(this);
@@ -44,7 +55,12 @@ class Student extends React.Component {
               variant="contained"
               className="student"
               color="primary"
-              style={{ width: "20%", height: "50px", fontSize: "10px" }}
+              style={{
+                width: "10%",
+                height: "25px",
+                fontSize: "5px",
+                margin: "3px"
+              }}
               onClick={() => this.setState({ show: true })}
             >
               <p>
