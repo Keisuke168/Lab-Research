@@ -19,8 +19,8 @@ class Student extends React.Component {
     super(props);
     this.state = {
       show: false,
-      gpa: "未設定",
-      lab: "未選択"
+      gpa: props.gpa,
+      lab: props.lab
     };
     this.setFalse = this.setFalse.bind(this);
     this.setLab = this.setLab.bind(this);

@@ -4,7 +4,13 @@ import Student from "./Student";
 import Divider from "@material-ui/core/Divider";
 import Container from "@material-ui/core/Container";
 import firebase from "firebase";
-
+const arrayChunk = ([...array], size = 1) => {
+  return array.reduce(
+    (acc, value, index) =>
+      index % size ? acc : [...acc, array.slice(index, index + size)],
+    []
+  );
+};
 const labs = [
   "cs11",
   "cs12",
@@ -35,7 +41,6 @@ class App extends React.Component {
       data: this.onetimeGet()
     };
     this.getData();
-    console.log("test" + this.onetimeGet());
     this.filterStudent = this.filterStudent.bind(this);
   }
   onetimeGet() {
@@ -44,7 +49,6 @@ class App extends React.Component {
       .ref("users")
       .once("value")
       .then((snapshot) => {
-        console.log(snapshot.val());
         return snapshot.val();
       });
   }
@@ -61,19 +65,35 @@ class App extends React.Component {
     if (typeof this.state.data !== "undefined") {
       let res = Object.keys(this.state.data).map((key) => {
         if (this.state.data[key].lab === lab) {
-          return <Student num={key} gpa={this.state.data[key].gpa} />;
+          return (
+            <Student
+              num={key}
+              lab={this.state.data[key].lab}
+              gpa={this.state.data[key].gpa}
+            />
+          );
         } else {
           return <></>;
         }
       });
-      console.log(res);
-      return res;
+      return (
+        <tbody style={{ justifyContent: "center" }}>
+          {arrayChunk(res, 5).map((elem) => {
+            return (
+              <tr>
+                {elem.map((e) => {
+                  return <td>{e}</td>;
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      );
     }
   }
 
   render() {
     if (typeof this.state.data === "undefined") {
-      console.log("un");
       return (
         <div className="App">
           <h1 className="heder">情知B3研究室志望調査</h1>
@@ -104,12 +124,11 @@ class App extends React.Component {
         </div>
       );
     } else {
-      console.log("ある");
       return (
         <div className="App">
           <h1 className="heder">情知B3研究室志望調査</h1>
           <div>
-            <p>自分の学番下三桁のボタンから志望を選択してください</p>
+            <p>各学番下三桁のボタンから志望を選択してください</p>
             <p>GPAは書きたかったら書いてください。</p>
           </div>
 
