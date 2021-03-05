@@ -37,7 +37,8 @@ class Student extends React.Component {
       });
   }
   changeGpa(event) {
-    this.setState({ gpa: event.target.value });
+    if (Number(event.target.value) >= 0 && Number(event.target.value) <= 4.3)
+      this.setState({ gpa: event.target.value });
   }
   setFalse() {
     this.setState({ show: false });
