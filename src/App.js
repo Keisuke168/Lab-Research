@@ -35,6 +35,8 @@ class App extends React.Component {
       data: this.onetimeGet()
     };
     this.getData();
+    console.log("test" + this.onetimeGet());
+    this.filterStudent = this.filterStudent.bind(this);
   }
   onetimeGet() {
     firebase
@@ -42,6 +44,7 @@ class App extends React.Component {
       .ref("users")
       .once("value")
       .then((snapshot) => {
+        console.log(snapshot.val());
         return snapshot.val();
       });
   }
@@ -52,43 +55,88 @@ class App extends React.Component {
       .ref("users")
       .on("value", (snapshot) => {
         this.setState({ data: snapshot.val() });
-
-        console.log(this.state.data);
       });
+  }
+  filterStudent(lab) {
+    if (typeof this.state.data !== "undefined") {
+      let res = Object.keys(this.state.data).map((key) => {
+        if (this.state.data[key].lab === lab) {
+          return <Student num={key} gpa={this.state.data[key].gpa} />;
+        } else {
+          return <></>;
+        }
+      });
+      console.log(res);
+      return res;
+    }
   }
 
   render() {
-    return (
-      <div className="App">
-        <h1 className="heder">情知B3研究室志望調査</h1>
-        <div>
-          <p>自分の学番下三桁のボタンから志望を選択してください</p>
-          <p>GPAは書きたかったら書いてください。</p>
+    if (typeof this.state.data === "undefined") {
+      console.log("un");
+      return (
+        <div className="App">
+          <h1 className="heder">情知B3研究室志望調査</h1>
+          <div>
+            <p>各学番下三桁のボタンから志望を選択してください</p>
+            <p>GPAは書きたかったら書いてください。</p>
+          </div>
+          <Divider />
+          <Container
+            maxWidth="sm"
+            style={{ backgroundColor: "#cfe8fc", justifyContent: "center" }}
+          >
+            <p>未選択</p>
+            <Divider />
+            {this.filterStudent("未選択")}
+          </Container>
+          {labs.map((elem) => {
+            return (
+              <Container
+                maxWidth="sm"
+                style={{ backgroundColor: "#cfe8fc", justifyContent: "center" }}
+              >
+                <p>{elem}</p>
+                {this.filterStudent(elem)}
+              </Container>
+            );
+          })}
         </div>
-        {}
-        <Divider />
-        <Container
-          maxWidth="sm"
-          style={{ backgroundColor: "#cfe8fc", justifyContent: "center" }}
-        >
-          <p>未設定</p>
-          <Student num="001" />
-          <Student num="002" />
-        </Container>
-        {labs.map((elem) => {
-          return (
-            <Container
-              maxWidth="sm"
-              style={{ backgroundColor: "#cfe8fc", justifyContent: "center" }}
-            >
-              <p>{elem}</p>
-              <Student num="001" />
-              <Student num="002" />
-            </Container>
-          );
-        })}
-      </div>
-    );
+      );
+    } else {
+      console.log("ある");
+      return (
+        <div className="App">
+          <h1 className="heder">情知B3研究室志望調査</h1>
+          <div>
+            <p>自分の学番下三桁のボタンから志望を選択してください</p>
+            <p>GPAは書きたかったら書いてください。</p>
+          </div>
+
+          <Divider />
+          <Container
+            maxWidth="sm"
+            style={{ backgroundColor: "#cfe8fc", justifyContent: "center" }}
+          >
+            <p>未選択</p>
+            <Divider />
+            {this.filterStudent("未選択")}
+          </Container>
+          {labs.map((elem) => {
+            return (
+              <Container
+                maxWidth="sm"
+                style={{ backgroundColor: "#cfe8fc", justifyContent: "center" }}
+              >
+                <p>{elem}</p>
+                <Divider />
+                {this.filterStudent(elem)}
+              </Container>
+            );
+          })}
+        </div>
+      );
+    }
   }
 }
 export default App;
