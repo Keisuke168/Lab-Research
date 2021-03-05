@@ -11,6 +11,7 @@ const arrayChunk = ([...array], size = 1) => {
     []
   );
 };
+
 const labs = [
   "cs11",
   "cs12",
@@ -63,18 +64,18 @@ class App extends React.Component {
   }
   filterStudent(lab) {
     if (typeof this.state.data !== "undefined") {
-      let res = Object.keys(this.state.data).map((key) => {
-        if (this.state.data[key].lab === lab) {
-          return (
-            <Student
-              num={key}
-              lab={this.state.data[key].lab}
-              gpa={this.state.data[key].gpa}
-            />
-          );
-        } else {
-          return <></>;
-        }
+      var res = Object.keys(this.state.data).filter((key) => {
+        return this.state.data[key].lab === lab;
+      });
+
+      res = res.map((e) => {
+        return (
+          <Student
+            num={e}
+            gpa={this.state.data[e].gpa}
+            lab={this.state.data[e].lab}
+          />
+        );
       });
       return (
         <tbody style={{ justifyContent: "center" }}>
