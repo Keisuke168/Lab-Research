@@ -81,9 +81,9 @@ class App extends React.Component {
         <tbody className="table">
           {arrayChunk(res, 5).map((elem) => {
             return (
-              <tr>
+              <tr className="tr">
                 {elem.map((e) => {
-                  return <td>{e}</td>;
+                  return <td className="ta">{e}</td>;
                 })}
               </tr>
             );
