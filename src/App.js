@@ -78,7 +78,7 @@ class App extends React.Component {
         );
       });
       return (
-        <tbody style={{ justifyContent: "center" }}>
+        <tbody className="table">
           {arrayChunk(res, 5).map((elem) => {
             return (
               <tr>
@@ -105,7 +105,10 @@ class App extends React.Component {
           <Divider />
           <Container
             maxWidth="sm"
-            style={{ backgroundColor: "#cfe8fc", justifyContent: "center" }}
+            style={{
+              backgroundColor: "#cfe8fc",
+              justifyContent: "center"
+            }}
           >
             <p>未選択</p>
             <Divider />

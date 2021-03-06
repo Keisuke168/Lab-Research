@@ -37,7 +37,11 @@ class Student extends React.Component {
       });
   }
   changeGpa(event) {
-    if (Number(event.target.value) >= 0 && Number(event.target.value) <= 4.3)
+    if (
+      Number(event.target.value) >= 0 &&
+      Number(event.target.value) <= 4.3 &&
+      event.target.value.length <= 4
+    )
       this.setState({ gpa: event.target.value });
   }
   setFalse() {
@@ -57,10 +61,11 @@ class Student extends React.Component {
               className="student"
               color="primary"
               style={{
-                width: "10%",
-                height: "25px",
-                fontSize: "5px",
-                margin: "3px"
+                width: "15%",
+                height: "30px",
+                fontSize: "8px",
+                padding: "0px",
+                margin: "2px"
               }}
               onClick={() => this.setState({ show: true })}
             >
@@ -73,6 +78,7 @@ class Student extends React.Component {
           </div>
 
           <Modal
+            num={this.props.num}
             show={this.state.show}
             close={this.setFalse}
             setLab={this.setLab}

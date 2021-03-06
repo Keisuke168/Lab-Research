@@ -40,6 +40,7 @@ class Modal extends React.Component {
           <div>
             <div id="overlay" onClick={this.props.close}>
               <div id="content" onClick={(e) => e.stopPropagation()}>
+                <p>学番{this.props.num}</p>
                 <p>
                   <TextField label="GPA" onChange={this.props.changeGpa} />
                 </p>
