@@ -101,6 +101,9 @@ class App extends React.Component {
           <div>
             <p>各学番下三桁のボタンから志望を選択してください</p>
             <p>GPAは書きたかったら書いてください。</p>
+            <p>
+              (何度でも変更できるので現状での希望を気楽にポチポチしてください)
+            </p>
           </div>
           <Divider />
           <Container
@@ -134,6 +137,9 @@ class App extends React.Component {
           <div>
             <p>各学番下三桁のボタンから志望を選択してください</p>
             <p>GPAは書きたかったら書いてください。</p>
+            <p>
+              (何度でも変更できるので現状での希望を気楽にポチポチしてください)
+            </p>
           </div>
 
           <Divider />
